@@ -1,7 +1,5 @@
 package ejercicio8;
 
-import java.lang.reflect.Array;
-
 public class LinkedDictionaryImpl<K, V> implements Dictionary<K, V> {
 
     private class NodoValor {
@@ -138,8 +136,7 @@ public class LinkedDictionaryImpl<K, V> implements Dictionary<K, V> {
             actual = actual.siguiente;
         }
 
-        V[] valores = (V[]) Array.newInstance(
-                nodo.primerValor.valor.getClass(), cantidad);
+        V[] valores = (V[]) new Object[cantidad];
 
         actual = nodo.primerValor;
 
@@ -262,8 +259,7 @@ public class LinkedDictionaryImpl<K, V> implements Dictionary<K, V> {
             return null;
         }
 
-        K[] claves = (K[]) Array.newInstance(
-                head.clave.getClass(), size);
+        K[] claves = (K[]) new Object[size];
 
         NodoClave actual = head;
 

@@ -92,7 +92,7 @@ public class LogicaNotasImpl implements LogicaNotas {
 
     public boolean quitarAlumno(int dni) {
 
-        Integer[] eliminado =
+        Object[] eliminado =
                 diccionarioGeneral.remove(dni);
 
         return eliminado != null;
@@ -102,14 +102,38 @@ public class LogicaNotasImpl implements LogicaNotas {
 
     public Integer[] obtenerNotas(int dni) {
 
-        return diccionarioGeneral.get(dni);
+        Object[] notasObj = diccionarioGeneral.get(dni);
+
+        if (notasObj == null) {
+            return null;
+        }
+
+        Integer[] notas = new Integer[notasObj.length];
+
+        for (int i = 0; i < notasObj.length; i++) {
+            notas[i] = (Integer) notasObj[i];
+        }
+
+        return notas;
     }
 
     // OBTENER ALUMNOS
 
     public Integer[] obtenerAlumnos() {
 
-        return diccionarioGeneral.keys();
+        Object[] alumnosObj = diccionarioGeneral.keys();
+
+        if (alumnosObj == null) {
+            return null;
+        }
+
+        Integer[] alumnos = new Integer[alumnosObj.length];
+
+        for (int i = 0; i < alumnosObj.length; i++) {
+            alumnos[i] = (Integer) alumnosObj[i];
+        }
+
+        return alumnos;
     }
 
     // PROMEDIO
@@ -117,7 +141,7 @@ public class LogicaNotasImpl implements LogicaNotas {
     public double calcularPromedio(int dni) {
 
         Integer[] notas =
-                diccionarioGeneral.get(dni);
+                obtenerNotas(dni);
 
         if (notas == null || notas.length == 0) {
             return -1;
