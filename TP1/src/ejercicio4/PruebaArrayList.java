@@ -1,6 +1,6 @@
 package ejercicio4;
 
-public class Principal {
+public class PruebaArrayList {
     public static void main(String[] args) {
         ListaTDA<String> lista = new ArrayList<>();
 
