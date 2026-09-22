@@ -1,4 +1,4 @@
-package clase4ejercicio4;
+package clase4Ejercicio4;
 
 import ejercicio7.Pila;
 import ejercicio7.PilaEnlazada;
