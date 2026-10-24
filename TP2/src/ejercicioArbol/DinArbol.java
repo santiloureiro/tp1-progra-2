@@ -9,7 +9,6 @@ public class DinArbol<T> implements Arbol<T> {
         this.tamanio = 0;
     }
 
-    // Método auxiliar recursivo privado para buscar un nodo dado un valor T
     private NodoArbol<T> buscarNodo(NodoArbol<T> actual, T valor) {
         if (actual == null || valor == null) {
             return null;
@@ -42,9 +41,6 @@ public class DinArbol<T> implements Arbol<T> {
         }
         return cantidad;
     }
-
-    // --- Construcción y modificación ---
-
     
     public void agregarRaiz(T valor) {
         if (raiz != null || valor == null) {
@@ -91,7 +87,7 @@ public class DinArbol<T> implements Arbol<T> {
         tamanio -= cantidadEliminada;
     }
 
-    // --- Consultas sobre el árbol (esqueleto para el resto del grupo) ---
+
 
     
     public boolean esVacio() {
@@ -117,9 +113,6 @@ public class DinArbol<T> implements Arbol<T> {
     public boolean contiene(T valor) {
         return buscarNodo(raiz, valor) != null;
     }
-
-    // --- Consultas sobre un nodo (esqueleto para el resto del grupo) ---
-
     
     public T padre(T valor) {
         return null;
@@ -144,8 +137,6 @@ public class DinArbol<T> implements Arbol<T> {
     public int profundidad(T valor) {
         return 0;
     }
-
-    // --- Recorridos (esqueleto para el resto del grupo) ---
 
     
     public List<T> preorden() {
