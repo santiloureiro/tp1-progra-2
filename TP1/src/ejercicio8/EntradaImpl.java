@@ -22,7 +22,7 @@ public class EntradaImpl<K, V> implements Entry<K,V> {
         this.valor = valor;
     }
 
-    @Override
+    
     public String toString() {
         return "(" + clave + ", " + valor + ")";
     }

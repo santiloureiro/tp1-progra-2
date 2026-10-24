@@ -39,7 +39,7 @@ public class Producto {
         this.cantidad = cantidad;
     }
 
-    @Override
+    
     public boolean equals(Object obj) {
         if (!(obj instanceof Producto)) {
             return false;
@@ -47,7 +47,7 @@ public class Producto {
         return this.id == ((Producto) obj).id;
     }
 
-    @Override
+    
     public String toString() {
         return "[" + id + "] " + nombre + " (" + categoria + ") - $" + precio + " - Stock: " + cantidad;
     }
