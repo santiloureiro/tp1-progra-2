@@ -1,6 +1,6 @@
 package ejercicioArbol;
 
-public interface Arbol<T> {
+public interface Tree<T> {
 
     // --- Construcción y modificación ---
     void agregarRaiz(T valor);

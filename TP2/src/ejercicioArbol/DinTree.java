@@ -1,25 +1,25 @@
 package ejercicioArbol;
 
-public class DinArbol<T> implements Arbol<T> {
-    private NodoArbol<T> raiz;
+public class DinTree<T> implements Tree<T> {
+    private TreeNode<T> raiz;
     private int tamanio;
 
-    public DinArbol() {
+    public DinTree() {
         this.raiz = null;
         this.tamanio = 0;
     }
 
-    private NodoArbol<T> buscarNodo(NodoArbol<T> actual, T valor) {
+    private TreeNode<T> buscarNodo(TreeNode<T> actual, T valor) {
         if (actual == null || valor == null) {
             return null;
         }
         if (actual.getValor().equals(valor)) {
             return actual;
         }
-        List<NodoArbol<T>> hijos = actual.getHijos();
+        List<TreeNode<T>> hijos = actual.getHijos();
         hijos.First();
         while (!hijos.atEnd()) {
-            NodoArbol<T> encontrado = buscarNodo(hijos.getCurrent(), valor);
+            TreeNode<T> encontrado = buscarNodo(hijos.getCurrent(), valor);
             if (encontrado != null) {
                 return encontrado;
             }
@@ -28,12 +28,12 @@ public class DinArbol<T> implements Arbol<T> {
         return null;
     }
 
-    private int contarNodos(NodoArbol<T> nodo) {
+    private int contarNodos(TreeNode<T> nodo) {
         if (nodo == null) {
             return 0;
         }
         int cantidad = 1;
-        List<NodoArbol<T>> hijos = nodo.getHijos();
+        List<TreeNode<T>> hijos = nodo.getHijos();
         hijos.First();
         while (!hijos.atEnd()) {
             cantidad += contarNodos(hijos.getCurrent());
@@ -41,35 +41,33 @@ public class DinArbol<T> implements Arbol<T> {
         }
         return cantidad;
     }
-    
+
     public void agregarRaiz(T valor) {
         if (raiz != null || valor == null) {
             return;
         }
-        raiz = new NodoArbol<T>(valor, null);
+        raiz = new TreeNode<T>(valor, null);
         tamanio = 1;
     }
 
-    
     public void agregarHijo(T padre, T hijo) {
         if (padre == null || hijo == null || raiz == null) {
             return;
         }
-        NodoArbol<T> nodoPadre = buscarNodo(raiz, padre);
+        TreeNode<T> nodoPadre = buscarNodo(raiz, padre);
         if (nodoPadre == null || buscarNodo(raiz, hijo) != null) {
             return;
         }
-        NodoArbol<T> nuevoHijo = new NodoArbol<T>(hijo, nodoPadre);
+        TreeNode<T> nuevoHijo = new TreeNode<T>(hijo, nodoPadre);
         nodoPadre.getHijos().addLast(nuevoHijo);
         tamanio++;
     }
 
-    
     public void eliminar(T valor) {
         if (valor == null || raiz == null) {
             return;
         }
-        NodoArbol<T> nodoEliminar = buscarNodo(raiz, valor);
+        TreeNode<T> nodoEliminar = buscarNodo(raiz, valor);
         if (nodoEliminar == null) {
             return;
         }
@@ -79,7 +77,7 @@ public class DinArbol<T> implements Arbol<T> {
             return;
         }
         int cantidadEliminada = contarNodos(nodoEliminar);
-        NodoArbol<T> nodoPadre = nodoEliminar.getPadre();
+        TreeNode<T> nodoPadre = nodoEliminar.getPadre();
         if (nodoPadre != null) {
             nodoPadre.getHijos().remove(nodoEliminar);
         }
@@ -87,68 +85,68 @@ public class DinArbol<T> implements Arbol<T> {
         tamanio -= cantidadEliminada;
     }
 
-
-
-    
     public boolean esVacio() {
         return tamanio == 0;
     }
 
-    
     public T raiz() {
         return (raiz != null) ? raiz.getValor() : null;
     }
 
-    
     public int tamanio() {
         return tamanio;
     }
 
-    
     public int altura() {
-        return -1;
+        return altura(raiz);
     }
 
-    
+    private int altura(TreeNode<T> nodo) {
+        if (nodo == null) {
+            return -1;
+        }
+        int mayorAlturaHijo = -1;
+        List<TreeNode<T>> hijos = nodo.getHijos();
+        hijos.First();
+        while (!hijos.atEnd()) {
+            mayorAlturaHijo = Math.max(mayorAlturaHijo, altura(hijos.getCurrent()));
+            hijos.advance();
+        }
+        return mayorAlturaHijo + 1;
+    }
+
     public boolean contiene(T valor) {
         return buscarNodo(raiz, valor) != null;
     }
-    
+
     public T padre(T valor) {
         return null;
     }
 
-    
     public List<T> hijos(T valor) {
         return null;
     }
 
-    
     public int grado(T valor) {
         return 0;
     }
 
-    
     public boolean esHoja(T valor) {
         return false;
     }
 
-    
     public int profundidad(T valor) {
         return 0;
     }
 
-    
     public List<T> preorden() {
         return null;
     }
 
-    
     public List<T> postorden() {
         return null;
     }
 
-    
     public List<T> porNiveles() {
         return null;
     }
