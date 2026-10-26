@@ -119,24 +119,61 @@ public class DinTree<T> implements Tree<T> {
         return buscarNodo(raiz, valor) != null;
     }
 
+    // --- Consultas sobre un nodo ---
+    // Precondición de todas: v existe. Si no existe se devuelve
+    // null / lista vacía / -1 / false según el caso.
+
     public T padre(T valor) {
-        return null;
+        TreeNode<T> nodo = buscarNodo(raiz, valor);
+        if (nodo == null || nodo.getPadre() == null) {
+            return null; // no existe o es la raíz
+        }
+        return nodo.getPadre().getValor();
     }
 
+    // Devuelve una lista NUEVA con los valores de los hijos (no los TreeNode
+    // internos), en el mismo orden en que se agregaron.
     public List<T> hijos(T valor) {
-        return null;
+        List<T> copia = new LinkedList<T>();
+        TreeNode<T> nodo = buscarNodo(raiz, valor);
+        if (nodo != null) {
+            List<TreeNode<T>> hijos = nodo.getHijos();
+            hijos.First();
+            while (!hijos.atEnd()) {
+                copia.addLast(hijos.getCurrent().getValor());
+                hijos.advance();
+            }
+        }
+        return copia;
     }
 
     public int grado(T valor) {
-        return 0;
+        TreeNode<T> nodo = buscarNodo(raiz, valor);
+        if (nodo == null) {
+            return -1;
+        }
+        return nodo.getHijos().getSize();
     }
 
     public boolean esHoja(T valor) {
-        return false;
+        return grado(valor) == 0;
     }
 
     public int profundidad(T valor) {
-        return 0;
+        TreeNode<T> nodo = buscarNodo(raiz, valor);
+        if (nodo == null) {
+            return -1;
+        }
+        return profundidad(nodo);
+    }
+
+    // Caso base: la raíz (no tiene padre) tiene profundidad 0.
+    // Caso recursivo: la profundidad de un nodo es 1 + la de su padre.
+    private int profundidad(TreeNode<T> nodo) {
+        if (nodo.getPadre() == null) {
+            return 0;
+        }
+        return 1 + profundidad(nodo.getPadre());
     }
 
     public List<T> preorden() {

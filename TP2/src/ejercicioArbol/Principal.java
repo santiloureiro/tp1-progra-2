@@ -20,12 +20,50 @@ public class Principal {
         System.out.println("¿Contiene 'E'?: " + arbol.contiene("E"));
         System.out.println("¿Contiene 'Z'?: " + arbol.contiene("Z"));
 
+        System.out.println("\n--- Consultas sobre un nodo ---");
+        System.out.println("Padre de 'D': " + arbol.padre("D"));
+        System.out.println("Padre de 'A' (raíz): " + arbol.padre("A"));
+        System.out.print("Hijos de 'A': ");
+        mostrarLista(arbol.hijos("A"));
+        System.out.print("Hijos de 'B': ");
+        mostrarLista(arbol.hijos("B"));
+        System.out.print("Hijos de 'F' (hoja): ");
+        mostrarLista(arbol.hijos("F"));
+        System.out.println("Grado de 'A': " + arbol.grado("A"));
+        System.out.println("Grado de 'C': " + arbol.grado("C"));
+        System.out.println("¿'E' es hoja?: " + arbol.esHoja("E"));
+        System.out.println("¿'B' es hoja?: " + arbol.esHoja("B"));
+        System.out.println("Profundidad de 'A' (raíz): " + arbol.profundidad("A"));
+        System.out.println("Profundidad de 'C': " + arbol.profundidad("C"));
+        System.out.println("Profundidad de 'E': " + arbol.profundidad("E"));
+
+        // hijos() devuelve una copia: modificarla no cambia el árbol
+        List<String> copia = arbol.hijos("A");
+        copia.addLast("Z");
+        System.out.println("Grado de 'A' después de modificar la copia: " + arbol.grado("A"));
+        System.out.println();
+
         arbol.eliminar("B"); // Elimina B, D y E (3 nodos)
         System.out.println("Tamaño tras eliminar subárbol 'B' (B, D, E): " + arbol.tamanio());
         System.out.println("¿Contiene 'E' tras eliminar 'B'?: " + arbol.contiene("E"));
+        System.out.print("Hijos de 'A' tras eliminar 'B': ");
+        mostrarLista(arbol.hijos("A"));
 
         arbol.eliminar("A"); // Elimina la raíz, queda vacío
         System.out.println("Tamaño tras eliminar raíz 'A': " + arbol.tamanio());
         System.out.println("¿Vacío tras eliminar raíz?: " + arbol.esVacio());
+    }
+
+    private static <T> void mostrarLista(List<T> lista) {
+        lista.First();
+        System.out.print("[");
+        while (!lista.atEnd()) {
+            System.out.print(lista.getCurrent());
+            lista.advance();
+            if (!lista.atEnd()) {
+                System.out.print(", ");
+            }
+        }
+        System.out.println("]");
     }
 }
