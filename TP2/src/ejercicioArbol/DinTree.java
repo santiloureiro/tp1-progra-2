@@ -176,15 +176,68 @@ public class DinTree<T> implements Tree<T> {
         return 1 + profundidad(nodo.getPadre());
     }
 
+    // --- Recorridos ---
+
     public List<T> preorden() {
-        return null;
+        List<T> resultado = new LinkedList<T>();
+        preorden(raiz, resultado);
+        return resultado;
+    }
+
+    private void preorden(TreeNode<T> nodo, List<T> resultado) {
+        if (nodo == null) {
+            return;
+        }
+        resultado.addLast(nodo.getValor());
+        List<TreeNode<T>> hijos = nodo.getHijos();
+        hijos.First();
+        while (!hijos.atEnd()) {
+            preorden(hijos.getCurrent(), resultado);
+            hijos.advance();
+        }
     }
 
     public List<T> postorden() {
-        return null;
+        List<T> resultado = new LinkedList<T>();
+        postorden(raiz, resultado);
+        return resultado;
+    }
+
+    private void postorden(TreeNode<T> nodo, List<T> resultado) {
+        if (nodo == null) {
+            return;
+        }
+        List<TreeNode<T>> hijos = nodo.getHijos();
+        hijos.First();
+        while (!hijos.atEnd()) {
+            postorden(hijos.getCurrent(), resultado);
+            hijos.advance();
+        }
+        resultado.addLast(nodo.getValor());
     }
 
     public List<T> porNiveles() {
-        return null;
+        List<T> resultado = new LinkedList<T>();
+        int h = altura();
+        for (int nivel = 0; nivel <= h; nivel++) {
+            agregarNivel(raiz, nivel, resultado);
+        }
+        return resultado;
+    }
+
+    private void agregarNivel(TreeNode<T> nodo, int nivel, List<T> resultado) {
+        if (nodo == null) {
+            return;
+        }
+        if (nivel == 0) {
+            resultado.addLast(nodo.getValor());
+        } else if (nivel > 0) {
+            List<TreeNode<T>> hijos = nodo.getHijos();
+            hijos.First();
+            while (!hijos.atEnd()) {
+                agregarNivel(hijos.getCurrent(), nivel - 1, resultado);
+                hijos.advance();
+            }
+        }
     }
 }

@@ -17,10 +17,10 @@ public class Principal {
         System.out.println("Raíz: " + arbol.raiz());
         System.out.println("Tamaño tras insertar 6 nodos: " + arbol.tamanio());
         System.out.println("Altura: " + arbol.altura());
-        System.out.println("¿Contiene 'E'?: " + arbol.contiene("E"));
-        System.out.println("¿Contiene 'Z'?: " + arbol.contiene("Z"));
+        System.out.println("¿Tiene 'E'?: " + arbol.contiene("E"));
+        System.out.println("¿Tiene 'Z'?: " + arbol.contiene("Z"));
 
-        System.out.println("\n--- Consultas sobre un nodo ---");
+        System.out.println("\nConsultas sobre un nodo");
         System.out.println("Padre de 'D': " + arbol.padre("D"));
         System.out.println("Padre de 'A' (raíz): " + arbol.padre("A"));
         System.out.print("Hijos de 'A': ");
@@ -37,19 +37,26 @@ public class Principal {
         System.out.println("Profundidad de 'C': " + arbol.profundidad("C"));
         System.out.println("Profundidad de 'E': " + arbol.profundidad("E"));
 
-        // hijos() devuelve una copia: modificarla no cambia el árbol
         List<String> copia = arbol.hijos("A");
         copia.addLast("Z");
         System.out.println("Grado de 'A' después de modificar la copia: " + arbol.grado("A"));
+
+        System.out.println("\nRecorridos");
+        System.out.print("Preorden:    ");
+        mostrarLista(arbol.preorden());
+        System.out.print("Postorden:   ");
+        mostrarLista(arbol.postorden());
+        System.out.print("Por niveles: ");
+        mostrarLista(arbol.porNiveles());
         System.out.println();
 
-        arbol.eliminar("B"); // Elimina B, D y E (3 nodos)
+        arbol.eliminar("B"); // Elimina B, D y E
         System.out.println("Tamaño tras eliminar subárbol 'B' (B, D, E): " + arbol.tamanio());
-        System.out.println("¿Contiene 'E' tras eliminar 'B'?: " + arbol.contiene("E"));
+        System.out.println("¿Tiene 'E' tras eliminar 'B'?: " + arbol.contiene("E"));
         System.out.print("Hijos de 'A' tras eliminar 'B': ");
         mostrarLista(arbol.hijos("A"));
 
-        arbol.eliminar("A"); // Elimina la raíz, queda vacío
+        arbol.eliminar("A"); // Elimina la raiz
         System.out.println("Tamaño tras eliminar raíz 'A': " + arbol.tamanio());
         System.out.println("¿Vacío tras eliminar raíz?: " + arbol.esVacio());
     }
